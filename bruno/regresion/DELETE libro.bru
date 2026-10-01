@@ -1,0 +1,25 @@
+meta {
+  name: DELETE libro
+  type: http
+  seq: 14
+}
+
+delete {
+  url: {{baseUrl}}/books/3
+  body: none
+  auth: inherit
+}
+
+assert {
+  res.status: eq 204
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+  forwardAuthorizationHeader: false
+}
+
+docs {
+  Técnica ISTQB: Transición de estados. Estado: libro existe -&gt; DELETE -&gt; libro eliminado.
+}

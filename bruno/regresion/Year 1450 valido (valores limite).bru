@@ -1,0 +1,34 @@
+meta {
+  name: Year 1450 valido (valores limite)
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/books
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "title": "Biblia de Gutenberg",
+    "author": "Johannes Gutenberg",
+    "year": 1450
+  }
+}
+
+assert {
+  res.status: eq 201
+  res.body.year: eq 1450
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+  forwardAuthorizationHeader: false
+}
+
+docs {
+  Técnica ISTQB: Análisis de valores límite. 1450 es el límite inferior válido de year (rango 1450 a 2100).
+}

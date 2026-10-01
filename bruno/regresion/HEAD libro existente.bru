@@ -1,0 +1,25 @@
+meta {
+  name: HEAD libro existente
+  type: http
+  seq: 11
+}
+
+head {
+  url: {{baseUrl}}/books/1
+  body: none
+  auth: inherit
+}
+
+assert {
+  res.status: eq 200
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+  forwardAuthorizationHeader: false
+}
+
+docs {
+  Técnica ISTQB: Partición de equivalencia. Clase válida: HEAD sobre un id existente responde 200 sin body.
+}

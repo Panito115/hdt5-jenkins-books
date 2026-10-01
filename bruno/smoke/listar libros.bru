@@ -1,0 +1,24 @@
+meta {
+  name: listar libros
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{baseUrl}}/books
+  body: none
+  auth: inherit
+}
+
+tests {
+  test("Lista los 3 libros iniciales", function() {
+    expect(res.status).to.equal(200);
+    expect(res.body).to.have.lengthOf(3);
+  });
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+  forwardAuthorizationHeader: false
+}

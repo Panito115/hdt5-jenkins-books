@@ -1,0 +1,35 @@
+meta {
+  name: crear libro
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{baseUrl}}/books
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "title": "Clean Code",
+    "author": "Robert Martin",
+    "year": 2008,
+    "copies": 2
+  }
+}
+
+assert {
+  @description('indica que el libro si se creo')
+  res.status: eq 201
+  @description('indica el directorio del libro (books/4)')
+  res.headers.location: eq /books/4
+  @description('el ID que se le asigna automaticamente')
+  res.body.id: eq 4
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+  forwardAuthorizationHeader: false
+}

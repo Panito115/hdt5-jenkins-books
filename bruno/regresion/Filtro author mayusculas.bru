@@ -1,0 +1,33 @@
+meta {
+  name: Filtro author mayusculas
+  type: http
+  seq: 9
+}
+
+get {
+  url: {{baseUrl}}/books?author=FEATHERS
+  body: none
+  auth: inherit
+}
+
+params:query {
+  author: FEATHERS
+}
+
+tests {
+  test("Encuentra exactamente 1 libro de Feathers", function() {
+    expect(res.status).to.equal(200);
+    expect(res.body).to.have.lengthOf(1);
+    expect(res.body[0].author).to.equal("Michael Feathers");
+  });
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+  forwardAuthorizationHeader: false
+}
+
+docs {
+  Técnica ISTQB: Partición de equivalencia. El filtro ?author= es subcadena y no distingue mayúsculas; FEATHERS debe encontrar a Michael Feathers.
+}

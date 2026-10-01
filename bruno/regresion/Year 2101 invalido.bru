@@ -1,0 +1,34 @@
+meta {
+  name: Year 2101 invalido
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{baseUrl}}/books
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "title": "Libro del futuro",
+    "author": "Anonimo",
+    "year": 2101
+  }
+}
+
+assert {
+  @description('entiende el json pero no cumple los requisitos')
+  res.status: eq 422
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+  forwardAuthorizationHeader: false
+}
+
+docs {
+  Técnica ISTQB: Análisis de valores límite. 2101 queda justo arriba del límite superior (2100).
+}

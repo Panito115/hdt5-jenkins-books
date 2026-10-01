@@ -1,0 +1,33 @@
+meta {
+  name: Title vacio invalido
+  type: http
+  seq: 6
+}
+
+post {
+  url: {{baseUrl}}/books
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "title": "",
+    "author": "Anonimo",
+    "year": 2020
+  }
+}
+
+assert {
+  res.statu: eq 422
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+  forwardAuthorizationHeader: false
+}
+
+docs {
+  Técnica ISTQB: Análisis de valores límite. title debe tener de 1 a 120 caracteres; 0 caracteres queda fuera del límite inferior.
+}

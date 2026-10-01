@@ -1,0 +1,36 @@
+meta {
+  name: PATCH cambia solo lo enviado
+  type: http
+  seq: 13
+}
+
+patch {
+  url: {{baseUrl}}/books/2
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "copies": 0
+  }
+}
+
+tests {
+  test("PATCH solo cambia copies", function() {
+    expect(res.status).to.equal(200);
+    expect(res.body.copies).to.equal(0);
+    expect(res.body.title).to.equal("Accelerate");
+    expect(res.body.year).to.equal(2018);
+  });
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+  forwardAuthorizationHeader: false
+}
+
+docs {
+  Técnica ISTQB: Tabla de decisión. Regla: PATCH cambia solo los campos enviados. Se cambia copies y el resto queda igual.
+}

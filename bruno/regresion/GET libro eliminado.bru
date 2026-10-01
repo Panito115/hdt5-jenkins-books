@@ -1,0 +1,25 @@
+meta {
+  name: GET libro eliminado
+  type: http
+  seq: 15
+}
+
+get {
+  url: {{baseUrl}}/books/3
+  body: none
+  auth: inherit
+}
+
+assert {
+  res.status: eq 404
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+  forwardAuthorizationHeader: false
+}
+
+docs {
+  Técnica ISTQB: Transición de estados. Después del DELETE, el libro 3 está en estado inexistente y debe dar 404.
+}

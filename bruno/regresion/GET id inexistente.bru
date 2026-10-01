@@ -1,0 +1,25 @@
+meta {
+  name: GET id inexistente
+  type: http
+  seq: 10
+}
+
+get {
+  url: {{baseUrl}}/books/999
+  body: none
+  auth: inherit
+}
+
+assert {
+  res.status: eq 404
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+  forwardAuthorizationHeader: false
+}
+
+docs {
+  Técnica ISTQB: Partición de equivalencia. Clase inválida: un id que no existe debe dar 404.q
+}
