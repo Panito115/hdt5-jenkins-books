@@ -13,7 +13,8 @@ pipeline {
     stage('Start API') {
       steps {
         sh '''
-        nohup uv run api.py > api.log 2>&1 &
+        pkill -f "uvicorn api:app" || true
+        JENKINS_NODE_COOKIE=dontKillMe nohup uv run --frozen uvicorn api:app --host 127.0.0.1 --port 8000 > api.log 2>&1 &
         echo $! > api.pid
         for i in $(seq 1 60); do
           curl -sf http://127.0.0.1:8000/health && exit 0
@@ -50,7 +51,11 @@ pipeline {
   post {
     always {
       junit allowEmptyResults: true, testResults: 'bruno/regresion/results.xml'
-      sh 'kill "$(cat api.pid)" 2>/dev/null || true'
+      sh '''
+      kill "$(cat api.pid)" 2>/dev/null || true
+      pkill -f "uvicorn api:app" || true
+      rm -f api.pid
+      '''
     }
   }
 }
